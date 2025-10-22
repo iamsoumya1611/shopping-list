@@ -26,6 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://shopping-list-psi-three.vercel.app",
   "eslintConfig": {
     "extends": [
       "react-app",
