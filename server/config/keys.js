@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: process.env.MONGO_URI || process.env.DEV_MONGO_URI 
+    mongoURI: process.env.MONGO_URI || 'mongodb://localhost:27017/shoppinglist'
 };

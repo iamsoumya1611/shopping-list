@@ -16,6 +16,17 @@ const api = axios.create({
   timeout: 15000, // Increase timeout to 15 seconds
 });
 
+// Add a request interceptor to log requests
+api.interceptors.request.use(
+  config => {
+    console.log('Making request to:', config.baseURL + config.url);
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
 export const getItems = () => dispatch => {
     dispatch(setItemsLoading());
     console.log('Fetching items from API...');
