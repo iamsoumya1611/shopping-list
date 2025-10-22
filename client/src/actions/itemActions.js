@@ -4,12 +4,22 @@ import axios from 'axios';
 // Create an axios instance with default config
 // In production, use the backend service URL from environment variable; in development, use localhost
 const isProduction = process.env.NODE_ENV === 'production';
-const API_BASE_URL = isProduction 
-  ? process.env.REACT_APP_API_URL || ''  // Use environment variable or empty string (same domain)
-  : 'http://localhost:5000';
+let API_BASE_URL = '';
+
+if (isProduction) {
+  // Use environment variable or empty string (same domain)
+  API_BASE_URL = process.env.REACT_APP_API_URL || '';
+} else {
+  // Development URL
+  API_BASE_URL = 'http://localhost:5000';
+}
+
+// Ensure the URL doesn't have trailing slashes
+API_BASE_URL = API_BASE_URL.replace(/\/$/, '');
 
 console.log('Environment:', process.env.NODE_ENV);
 console.log('API Base URL:', API_BASE_URL);
+console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
