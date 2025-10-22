@@ -16,30 +16,6 @@ const api = axios.create({
   timeout: 15000, // Increase timeout to 15 seconds
 });
 
-// Add request interceptor for debugging
-api.interceptors.request.use(
-  config => {
-    console.log('API Request:', config.method?.toUpperCase(), config.baseURL + config.url);
-    return config;
-  },
-  error => {
-    console.error('API Request Error:', error);
-    return Promise.reject(error);
-  }
-);
-
-// Add response interceptor for debugging
-api.interceptors.response.use(
-  response => {
-    console.log('API Response:', response.status, response.config.baseURL + response.config.url);
-    return response;
-  },
-  error => {
-    console.error('API Response Error:', error.response || error.message || error);
-    return Promise.reject(error);
-  }
-);
-
 export const getItems = () => dispatch => {
     dispatch(setItemsLoading());
     console.log('Fetching items from API...');
