@@ -14,31 +14,10 @@ const app = express();
 // Bodyparser Middleware
 app.use(bodyParser.json());
 
-// CORS Middleware with specific configuration for deployment
-const corsOptions = {
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        // List of allowed origins (add your frontend domain here)
-        const allowedOrigins = [
-            'http://localhost:3000',
-            'http://localhost:8080',
-            'https://shopping-list-c4tv.vercel.app', // Your frontend domain
-            // Add other allowed origins as needed
-        ];
-        
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+app.use(cors(
+    {origin: '*',
+    }
+));
 
 // Add logging middleware for debugging
 app.use((req, res, next) => {
