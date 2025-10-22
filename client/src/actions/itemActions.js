@@ -8,18 +8,14 @@ let API_BASE_URL = '';
 
 if (isProduction) {
   // Use environment variable or empty string (same domain)
-  API_BASE_URL = process.env.REACT_APP_API_URL || '';
-} else {
-  // Development URL
-  API_BASE_URL = 'http://localhost:5000';
+  API_BASE_URL = 'https://shopping-list-psi-three.vercel.app' || '';
 }
 
 // Ensure the URL doesn't have trailing slashes
-API_BASE_URL = API_BASE_URL.replace(/\/$/, '');
+// API_BASE_URL = API_BASE_URL.replace(/\/$/, '');
 
 console.log('Environment:', process.env.NODE_ENV);
-console.log('API Base URL:', API_BASE_URL);
-console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+console.log('REACT_APP_API_URL:', API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
