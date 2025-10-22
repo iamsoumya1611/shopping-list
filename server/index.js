@@ -19,13 +19,6 @@ app.use(cors(
     }
 ));
 
-// Add logging middleware for debugging
-app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-    console.log('Origin:', req.headers.origin);
-    next();
-});
-
 // DB Config
 const db = require('./config/keys').mongoURI;
 
@@ -49,24 +42,6 @@ mongoose
 
 // IMPORTANT: API routes must be defined BEFORE static file serving
 app.use('/api/items', items);
-
-// Add a health check endpoint
-app.get('/health', (req, res) => {
-    res.status(200).json({ 
-        status: 'OK', 
-        timestamp: new Date().toISOString(),
-        mongodb: isConnected ? 'Connected' : 'Disconnected'
-    });
-});
-
-// Error handling middleware for CORS
-app.use((err, req, res, next) => {
-    if (err.message === 'Not allowed by CORS') {
-        res.status(403).json({ error: 'CORS not allowed' });
-    } else {
-        next(err);
-    }
-});
 
 // app.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`));
 
