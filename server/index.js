@@ -42,7 +42,7 @@ mongoose
     });
 
 // IMPORTANT: API routes must be defined BEFORE static file serving
-app.use('/api/items', items);
+app.use('/items', items);
 
 app.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`));
 
