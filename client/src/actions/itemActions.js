@@ -22,23 +22,12 @@ const api = axios.create({
   timeout: 15000, // Increase timeout to 15 seconds
 });
 
-// Add a request interceptor to log requests
-api.interceptors.request.use(
-  config => {
-    console.log('Making request to:', config.baseURL + config.url);
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  }
-);
-
 export const getItems = () => dispatch => {
     dispatch(setItemsLoading());
     console.log('Fetching items from API...');
     
     // Return the Promise so we can handle it in components
-    return api.get('/api/items')
+    return api.get('/items')
         .then(res => {
             console.log('Received items from API:', res.data);
             dispatch({
@@ -68,7 +57,7 @@ export const getItems = () => dispatch => {
 };
 
 export const deleteItem = id => dispatch => {
-    api.delete(`/api/items/${id}`)
+    api.delete(`/items/${id}`)
         .then(res => 
             dispatch({
                 type: DELETE_ITEM,
@@ -82,7 +71,7 @@ export const deleteItem = id => dispatch => {
 };
 
 export const addItem = item => dispatch => {
-    api.post('/api/items', item)
+    api.post('/items', item)
         .then(res => 
             dispatch({
                 type: ADD_ITEM,
@@ -101,16 +90,3 @@ export const setItemsLoading = () => {
     };
 };
 
-// Add a health check function
-export const checkApiHealth = () => {
-    console.log('Checking API health...');
-    return api.get('/health')
-        .then(res => {
-            console.log('API Health Check Success:', res.data);
-            return res.data;
-        })
-        .catch(err => {
-            console.error('API Health Check Failed:', err.response || err.message || err);
-            throw err;
-        });
-};
